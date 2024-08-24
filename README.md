@@ -7,8 +7,11 @@ Due to privacy concerns, Danny has shared a sample of his overall customer data,
 
 Danny has shared with you 3 key datasets for this case study:
 sales
+
 menu
+
 members
+
 
 ## Entity Relationship Diagram
 
