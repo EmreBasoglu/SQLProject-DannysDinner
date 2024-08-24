@@ -6,6 +6,7 @@ He intends to use this information to decide whether to expand the current custo
 Due to privacy concerns, Danny has shared a sample of his overall customer data, hoping it will be enough for you to create effective SQL queries that can help address his inquiries.
 
 Danny has shared with you 3 key datasets for this case study:
+
 sales
 
 menu
@@ -15,7 +16,7 @@ members
 
 ## Entity Relationship Diagram
 
-![Entity Diagram](https://github.com/user-attachments/assets/fe138722-0436-4c1c-a821-aa86265ec6c1)
+![Diagram](https://github.com/user-attachments/assets/ef87abb9-34ad-4019-bac1-ffeb2a8cd57b)
 
 
 ## Example Datasets
