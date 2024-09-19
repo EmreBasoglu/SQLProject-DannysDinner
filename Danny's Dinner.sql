@@ -60,13 +60,43 @@ ORDER BY
 LIMIT 1;
 
 
-5- Which item was the most popular for each customer?
+5. Which item was the most popular for each customer?
 
-select * from sales;
- with c_info as (
- select customer_id,product_id,count(customer_id) as number_of_time from sales
- group by product_id,customer_id),
- rank_info as (
- select *,rank() over(partition by customer_id order by number_of_time desc) as rk from cust_info)
- select customer_id,product_id,product_name,number_of_time from rank_info inner join menu using
- (product_id) where rk=1 order by customer_id;
+WITH POPULATCTE AS 
+(SELECT
+	s.customer_id, m.product_name,count(s.product_id) as no_of_times_ordered, rank() 
+	over(PARTITION BY s.customer_id ORDER BY count(s.product_id)DESC) as rank
+FROM
+	Sales s JOIN Menu m
+	on s.product_id=m.product_id
+GROUP BY s.customer_id,m.product_name)
+
+SELECT
+	customer_id,
+	product_name,
+	no_of_times_ordered
+FROM POPULATCTE
+WHERE rank=1;
+
+
+6. Which item was purchased first by the customer after they became a member?
+
+WITH FIRSTCTE AS 
+(SELECT
+	s.customer_id,
+	m.product_name,
+	s.order_date,
+	rank() over(PARTITION BY s.customer_id ORDER BY s.order_date) as rank
+FROM
+	Sales s JOIN Menu m
+	on s.product_id=m.product_id
+	JOIN Members mb
+	on s.customer_id=mb.customer_id
+WHERE s.order_date>=mb.join_date)
+
+SELECT 
+	customer_id,
+	product_name,
+	order_date
+FROM FIRSTCTE
+WHERE rank=1;
