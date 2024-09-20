@@ -100,3 +100,24 @@ SELECT
 	order_date
 FROM FIRSTCTE
 WHERE rank=1;
+
+
+
+7. Which item was purchased just before the customer became a member?
+
+SELECT 
+    s.customer_id,
+    m.product_name,
+    s.order_date
+FROM 
+    Sales s
+    JOIN Menu m ON s.product_id = m.product_id
+    JOIN Members mb ON s.customer_id = mb.customer_id
+WHERE 
+    s.order_date < mb.join_date
+    AND s.order_date = (
+        SELECT MAX(s2.order_date)
+        FROM Sales s2
+        WHERE s2.customer_id = s.customer_id
+        AND s2.order_date < mb.join_date
+    );
