@@ -121,3 +121,11 @@ WHERE
         WHERE s2.customer_id = s.customer_id
         AND s2.order_date < mb.join_date
     );
+
+8. What is the total items and amount spent for each member before they became a member?
+
+ select * from menu;
+ select * from sales;
+ select s.customer_id,count(m.product_name) as 'total items',sum(m.price) as 'total Amount'from sales
+ as s inner join menu as m using (product_id) inner join members as c  on
+ s.customer_id = c.customer_id and order_date< join_date  group by customer_id order by s.customer_id;
