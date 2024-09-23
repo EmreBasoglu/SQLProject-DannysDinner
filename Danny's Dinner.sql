@@ -129,3 +129,10 @@ WHERE
  select s.customer_id,count(m.product_name) as 'total items',sum(m.price) as 'total Amount'from sales
  as s inner join menu as m using (product_id) inner join members as c  on
  s.customer_id = c.customer_id and order_date< join_date  group by customer_id order by s.customer_id;
+
+9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier ?
+
+ select s.customer_id, sum(case when m.product_name='sushi' then m.price*20 else m.price*10 end) as 'total Points'
+ from sales as s inner join menu as m using (product_id) group by s.customer_id;
+
+
